@@ -1,0 +1,47 @@
+Commands used in this Project:
+1. Connect to EC2 Instance via SSH:
+ssh -i your-key.pem ubuntu@your-instance-ip
+This command establishes an SSH connection to your EC2 instance using your private
+key (your-key.pem) and the instance's public IP address (your-instance-ip).
+2. Update Package Index:
+sudo apt update
+This command updates the package index on your EC2 instance, ensuring that you have
+access to the latest versions of packages.
+3. Install Required Packages:
+sudo apt install apache2 mysql-server php libapache2-mod-php php-mysql
+This command installs Apache web server, MySQL database server, PHP, and necessary
+PHP modules to run WordPress on your EC2 instance.
+4. Download WordPress:
+wget https://wordpress.org/latest.tar.gz
+This command downloads the latest version of WordPress in a .tar.gz archive format to your
+EC2 instance.
+5. Extract WordPress Files:
+tar -xzvf latest.tar.gz
+This command extracts the WordPress files from the downloaded archive.
+6. Move WordPress Files to Apache Document Root:
+sudo mv wordpress/* /var/www/html/
+This command moves the extracted WordPress files to the Apache document root directory,
+which is where your website files are served from.
+7. Create MySQL Database and User for WordPress:
+sudo mysql -u root -p
+This command logs into the MySQL shell using the root user.
+SQL
+CREATE DATABASE wordpress;
+CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+These SQL commands create a MySQL database named wordpress, create a MySQL user
+named wordpressuser with the password password, grant all privileges on the wordpress
+database to the wordpressuser, and then flush privileges to apply the changes.
+8. Configure WordPress:
+sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+sudo nano /var/www/html/wp-config.php
+The first command copies the WordPress sample configuration file to a new file named
+wp-config.php.The second command opens the wp-config.php file in the Nano text editor,
+allowing you to edit it.
+In the wp-config.php file, you'll need to update the database connection settings with the
+database name, username, password, and host.
+These commands are the fundamental steps involved in setting up WordPress and MySQL
+on an AWS EC2 instance. Adjustments may be needed depending on your specific setup or
+requirements.
